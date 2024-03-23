@@ -6,15 +6,139 @@ import Typewriter from "typewriter-effect";
 import TextComp from './TextComp';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiLike, BiChat, BiShare, BiSolidLike, BiSolidShare } from "react-icons/bi";
+import { useSpring, animated } from 'react-spring';
+
 
 
 
 
 const Alperen = () => {
+    const [isFlipped, setIsFlipped] = useState(true);
     const [liked, setLiked] = useState(false);
     const [share, setShare] = useState(false)
+    const { transform, opacity } = useSpring({
+        opacity: isFlipped ? 1 : 0,
+        transform: `perspective(600px) rotateY(${isFlipped ? 180 : 0}deg)`,
+        config: { mass: 5, tension: 500, friction: 80 },
+    });
+    const BackSide = () => (
+        <Flex flex={1}>
 
-    const shareInfo =() =>{
+
+            <Card maxW='md'>
+                <CardHeader>
+                    <Flex spacing='4'>
+                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+                            <Avatar name='Emine Aydınlı' />
+
+                            <Box>
+                                <Heading size='sm'>Emine Aydınlı</Heading>
+                                <Flex align="center" justify="center" gap="2">
+                                    <Text>Matematik</Text>
+                                    <Box flexShrink={0} w={1.5} h={1.5} bg="gray.800" borderRadius="full" />
+                                    <Text>Lise</Text>
+                                </Flex>
+                            </Box>
+                        </Flex>
+
+                    </Flex>
+                </CardHeader>
+                <CardBody>
+                    <Text>
+                        With Chakra UI, I wanted to sync the speed of development with the speed
+                        of design. I wanted the developer to be just as excited as the designer to
+                        create a screen.
+                    </Text>
+                </CardBody>
+
+
+                <CardFooter
+                    justify='space-between'
+                    flexWrap='wrap'
+                    sx={{
+                        '& > button': {
+                            minW: '136px',
+                        },
+                    }}
+                >
+                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
+                        Like
+                    </Button>
+                    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
+                        Comment
+                    </Button>
+                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
+                        Share
+                    </Button>
+                </CardFooter>
+            </Card>
+
+
+
+
+
+        </Flex>
+    );
+    const FrontSide = () => (
+        <Flex flex={1}>
+
+
+            <Card maxW='md'>
+                <CardHeader>
+                    <Flex spacing='4'>
+                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+                            <Avatar name='Alperen Akal' />
+
+                            <Box>
+                                <Heading size='sm'>Alperen Akal</Heading>
+                                <Flex align="center" justify="center" gap="2">
+                                    <Text>Matematik</Text>
+                                    <Box flexShrink={0} w={1.5} h={1.5} bg="gray.800" borderRadius="full" />
+                                    <Text>Lise</Text>
+                                </Flex>
+                            </Box>
+                        </Flex>
+
+                    </Flex>
+                </CardHeader>
+                <CardBody>
+                    <Text>
+                        With Chakra UI, I wanted to sync the speed of development with the speed
+                        of design. I wanted the developer to be just as excited as the designer to
+                        create a screen.
+                    </Text>
+                </CardBody>
+
+
+                <CardFooter
+                    justify='space-between'
+                    flexWrap='wrap'
+                    sx={{
+                        '& > button': {
+                            minW: '136px',
+                        },
+                    }}
+                >
+                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
+                        Like
+                    </Button>
+                    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
+                        Comment
+                    </Button>
+                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
+                        Share
+                    </Button>
+                </CardFooter>
+            </Card>
+
+
+
+
+
+        </Flex>
+
+    );
+    const shareInfo = () => {
         setShare(!share)
         navigator.share({
             url: window.location.href
@@ -65,60 +189,75 @@ const Alperen = () => {
             </Flex>
             <Divider m={1} borderColor={"#58A399"} borderWidth={"2px"} />
             <Flex flexDir={"row"} w={"100%"} gap={4}>
+
                 <Box flex={1} >
-                    <TextComp text={"Sorunu Sor"}></TextComp>
-                </Box>
-                <Flex flex={1}>
+                    <Flex m={5} p={5} direction={"column"} gap={5}>
+                        <Flex
+                            justifyContent="center" // Yatayda ortala
 
-
-                    <Card maxW='md'>
-                        <CardHeader>
-                            <Flex spacing='4'>
-                                <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                                    <Avatar name='Alperen Akal' />
-
-                                    <Box>
-                                        <Heading size='sm'>Alperen Akal</Heading>
-                                        <Flex align="center" justify="center" gap="2">
-                                            <Text>Matematik</Text>
-                                            <Box flexShrink={0} w={1.5} h={1.5} bg="gray.800" borderRadius="full" />
-                                            <Text>Lise</Text>
-                                        </Flex>
-                                    </Box>
-                                </Flex>
-                              
-                            </Flex>
-                        </CardHeader>
-                        <CardBody>
-                            <Text>
-                                With Chakra UI, I wanted to sync the speed of development with the speed
-                                of design. I wanted the developer to be just as excited as the designer to
-                                create a screen.
-                            </Text>
-                        </CardBody>
-
-
-                        <CardFooter
-                            justify='space-between'
-                            flexWrap='wrap'
-                            sx={{
-                                '& > button': {
-                                    minW: '136px',
-                                },
-                            }}
                         >
-                            <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
-                                Like
+                            <Button
+                                whiteSpace="pre-line"
+                                fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
+                                fontSize="60px" // Responsive font boyutu ayarı
+                                textAlign="center"
+                                lineHeight="taller"
+                                mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
+                                fontWeight="bold"
+                                color="#00000"
+                                p={5}
+                                onClick={() => setIsFlipped(true)}
+                            >
+                                Sorunu Sor
                             </Button>
-                            <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                                Comment
-                            </Button>
-                            <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare/>:<BiShare/>}>
-                                Share
-                            </Button>
-                        </CardFooter>
-                    </Card>
+                        </Flex>
+                        <Flex
+                            justifyContent="center" // Yatayda ortala
 
+                        >
+                            <Button
+                                whiteSpace="pre-line"
+                                fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
+                                fontSize="60px" // Responsive font boyutu ayarı
+                                textAlign="center"
+                                lineHeight="taller"
+                                mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
+                                fontWeight="bold"
+                                color="#00000"
+                                p={5}
+                                onClick={() => setIsFlipped(false)}
+                            >
+                                Cevabını gör
+                            </Button>
+                        </Flex>
+                    </Flex>
+
+
+                </Box>
+
+
+                <Flex flex={1} justifyContent="center" alignItems="center" >
+
+
+                <animated.div
+                    style={{
+                        opacity: opacity.interpolate(o => 1 - o),
+                        transform,
+                    }}
+                >
+                    <BackSide />
+                   
+                </animated.div>
+
+                <animated.div
+                    style={{
+                        opacity,
+                        transform: transform.interpolate(t => `${t} rotateY(180deg)`),
+                        position: 'absolute',
+                    }}
+                >
+                     <FrontSide />
+                </animated.div>
 
 
 
@@ -128,6 +267,7 @@ const Alperen = () => {
 
 
             </Flex>
+
         </Flex >
     );
 }
