@@ -13,6 +13,7 @@ import { useSpring, animated } from 'react-spring';
 
 
 const Alperen = () => {
+
     const [isFlipped, setIsFlipped] = useState(true);
     const [liked, setLiked] = useState(false);
     const [share, setShare] = useState(false)
@@ -20,6 +21,22 @@ const Alperen = () => {
         opacity: isFlipped ? 1 : 0,
         transform: `perspective(600px) rotateY(${isFlipped ? 180 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
+    });
+    const shareInfo = () => {
+        setShare(!share)
+        navigator.share({
+            url: window.location.href
+        })
+    }
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
+
+    // Topun animasyonunu tanımla
+    const { x } = useSpring({
+        x: isFlipped ? 0 : 80, // Örnek olarak, her buton arası 100px mesafe varsayıyoruz
+        config: { tension: 200, friction: 20 },
     });
     const BackSide = () => (
         <Flex flex={1}>
@@ -61,13 +78,13 @@ const Alperen = () => {
                         },
                     }}
                 >
-                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
+                    <Button flex='1' variant='ghost' leftIcon={share ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
                         Like
                     </Button>
                     <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
                         Comment
                     </Button>
-                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
+                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={liked ? <BiSolidShare /> : <BiShare />} >
                         Share
                     </Button>
                 </CardFooter>
@@ -125,7 +142,7 @@ const Alperen = () => {
                     <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
                         Comment
                     </Button>
-                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
+                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare /> }>
                         Share
                     </Button>
                 </CardFooter>
@@ -138,15 +155,7 @@ const Alperen = () => {
         </Flex>
 
     );
-    const shareInfo = () => {
-        setShare(!share)
-        navigator.share({
-            url: window.location.href
-        })
-    }
-    useEffect(() => {
-        AOS.init();
-    }, []);
+  
     const alperen = "alperen"
     return (
         <Flex flexDirection="column" gap={2} mb={2} py={5}>
@@ -188,9 +197,10 @@ const Alperen = () => {
 
             </Flex>
             <Divider m={1} borderColor={"#58A399"} borderWidth={"2px"} />
-            <Flex flexDir={"row"} w={"100%"} gap={4}>
+            <Flex flexDir={"row"} w={"100%"} gap={5}>
 
                 <Box flex={1} >
+                <Flex flexDirection="column" alignItems="center" gap="4">
                     <Flex m={5} p={5} direction={"column"} gap={5}>
                         <Flex
                             justifyContent="center" // Yatayda ortala
@@ -204,13 +214,19 @@ const Alperen = () => {
                                 lineHeight="taller"
                                 mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
                                 fontWeight="bold"
+                                height={30}
+                                size='md'
                                 color="#00000"
+                                backgroundColor={isFlipped ? "#58A399" : "#00000"}
+
                                 p={5}
-                                onClick={() => setIsFlipped(true)}
+
+                                onClick={() => { setIsFlipped(true); setSelectedButton(0); }}
                             >
                                 Sorunu Sor
                             </Button>
                         </Flex>
+
                         <Flex
                             justifyContent="center" // Yatayda ortala
 
@@ -225,39 +241,59 @@ const Alperen = () => {
                                 fontWeight="bold"
                                 color="#00000"
                                 p={5}
-                                onClick={() => setIsFlipped(false)}
+                                backgroundColor={isFlipped ? "#00000" : "#58A399"}
+
+                                onClick={() => { setIsFlipped(false); setSelectedButton(1) }}
                             >
                                 Cevabını gör
                             </Button>
+                            
                         </Flex>
+                      
+                    <Box flex={1} position="absolute"  height="10px">
+                    <animated.div
+                        style={{
+                            position: 'absolute',
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '10px',
+                            backgroundColor: 'blue',
+                            top: '28px',
+                            transform: x.interpolate(x => `translateY(${x}px)`),
+                        }}
+                    />
+                    </Box>
+                
+                        
                     </Flex>
-
+                
+                        </Flex>
 
                 </Box>
-
+                
 
                 <Flex flex={1} justifyContent="center" alignItems="center" >
 
 
-                <animated.div
-                    style={{
-                        opacity: opacity.interpolate(o => 1 - o),
-                        transform,
-                    }}
-                >
-                    <BackSide />
-                   
-                </animated.div>
+                    <animated.div
+                        style={{
+                            opacity: opacity.interpolate(o => 1 - o),
+                            transform,
+                        }}
+                    >
+                        <BackSide />
 
-                <animated.div
-                    style={{
-                        opacity,
-                        transform: transform.interpolate(t => `${t} rotateY(180deg)`),
-                        position: 'absolute',
-                    }}
-                >
-                     <FrontSide />
-                </animated.div>
+                    </animated.div>
+
+                    <animated.div
+                        style={{
+                            opacity,
+                            transform: transform.interpolate(t => `${t} rotateY(180deg)`),
+                            position: 'absolute',
+                        }}
+                    >
+                        <FrontSide />
+                    </animated.div>
 
 
 
