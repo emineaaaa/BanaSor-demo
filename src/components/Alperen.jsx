@@ -22,7 +22,13 @@ const Alperen = () => {
         transform: `perspective(600px) rotateY(${isFlipped ? 180 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
     });
-    const shareInfo = () => {
+    const frontshareInfo = () => {
+        setShare(!share)
+        navigator.share({
+            url: window.location.href
+        })
+    }
+    const backshareInfo = () => {
         setShare(!share)
         navigator.share({
             url: window.location.href
@@ -35,19 +41,16 @@ const Alperen = () => {
 
     // Topun animasyonunu tanımla
     const { x } = useSpring({
-        x: isFlipped ? 0 : 80, // Örnek olarak, her buton arası 100px mesafe varsayıyoruz
+        x: isFlipped ? 0 : 85, // Örnek olarak, her buton arası 100px mesafe varsayıyoruz
         config: { tension: 200, friction: 20 },
     });
     const BackSide = () => (
         <Flex flex={1}>
-
-
-            <Card maxW='md'>
+            <Card maxW={{ base: '90%', md: 'md' }}>
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                             <Avatar name='Emine Aydınlı' />
-
                             <Box>
                                 <Heading size='sm'>Emine Aydınlı</Heading>
                                 <Flex align="center" justify="center" gap="2">
@@ -57,7 +60,6 @@ const Alperen = () => {
                                 </Flex>
                             </Box>
                         </Flex>
-
                     </Flex>
                 </CardHeader>
                 <CardBody>
@@ -67,8 +69,6 @@ const Alperen = () => {
                         create a screen.
                     </Text>
                 </CardBody>
-
-
                 <CardFooter
                     justify='space-between'
                     flexWrap='wrap'
@@ -78,24 +78,21 @@ const Alperen = () => {
                         },
                     }}
                 >
-                    <Button flex='1' variant='ghost' leftIcon={share ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
-                        Like
+                     <Button onClick={backshareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
+                        Share
                     </Button>
+                    
                     <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
                         Comment
                     </Button>
-                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={liked ? <BiSolidShare /> : <BiShare />} >
-                        Share
+                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
+                        Like
                     </Button>
                 </CardFooter>
             </Card>
-
-
-
-
-
         </Flex>
     );
+
     const FrontSide = () => (
         <Flex flex={1}>
 
@@ -142,7 +139,7 @@ const Alperen = () => {
                     <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
                         Comment
                     </Button>
-                    <Button onClick={shareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare /> }>
+                    <Button onClick={frontshareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
                         Share
                     </Button>
                 </CardFooter>
@@ -155,8 +152,8 @@ const Alperen = () => {
         </Flex>
 
     );
-  
-    const alperen = "alperen"
+
+
     return (
         <Flex flexDirection="column" gap={2} mb={2} py={5}>
             <Flex align="center" flexDirection={"column"}>
@@ -200,77 +197,78 @@ const Alperen = () => {
             <Flex flexDir={"row"} w={"100%"} gap={5}>
 
                 <Box flex={1} >
-                <Flex flexDirection="column" alignItems="center" gap="4">
-                    <Flex m={5} p={5} direction={"column"} gap={5}>
-                        <Flex
-                            justifyContent="center" // Yatayda ortala
+                    <Flex flexDirection="column" alignItems="center" gap="4">
+                        <Flex m={5} p={5} direction={"column"} gap={5}>
+                            <Flex
+                                justifyContent="center" // Yatayda ortala
 
-                        >
-                            <Button
-                                whiteSpace="pre-line"
-                                fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
-                                fontSize="60px" // Responsive font boyutu ayarı
-                                textAlign="center"
-                                lineHeight="taller"
-                                mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
-                                fontWeight="bold"
-                                height={30}
-                                size='md'
-                                color="#00000"
-                                backgroundColor={isFlipped ? "#58A399" : "#00000"}
-
-                                p={5}
-
-                                onClick={() => { setIsFlipped(true); setSelectedButton(0); }}
                             >
-                                Sorunu Sor
-                            </Button>
+                                <Button
+                                    whiteSpace="pre-line"
+                                    fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
+                                    fontSize={{ base: 'md', md: '4xl' }}// Responsive font boyutu ayarı
+                                    textAlign="center"
+                                    lineHeight="taller"
+                                    mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
+                                    fontWeight="bold"
+                                    height={30}
+                                    size='md'
+                                    color="#00000"
+                                    backgroundColor={isFlipped ? "#58A399" : "#00000"}
+
+                                    p={5}
+
+                                    onClick={() => { setIsFlipped(true); setSelectedButton(0); }}
+                                >
+                                    Sorunu Sor
+                                </Button>
+                            </Flex>
+
+                            <Flex
+                                justifyContent="center" // Yatayda ortala
+
+                            >
+                                <Button
+                                    whiteSpace="pre-line"
+                                    fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
+                                    fontSize={{ base: 'lg', md: '4xl' }}// Responsive font boyutu ayarı
+                                    textAlign="center"
+                                    size='lg'
+                                    lineHeight="taller"
+                                    mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
+                                    fontWeight="bold"
+                                    color="#00000"
+                                    p={5}
+                                    backgroundColor={isFlipped ? "#00000" : "#58A399"}
+
+                                    onClick={() => { setIsFlipped(false); setSelectedButton(1) }}
+                                >
+                                    Cevabını gör
+                                </Button>
+
+                            </Flex>
+
+                            <Box flex={1} position="absolute" height="10px">
+                                <animated.div
+                                    style={{
+                                        position: 'absolute',
+                                        width: '20px',
+                                        height: '20px',
+                                        borderRadius: '10px',
+                                        backgroundColor: 'blue',
+                                        top: '28px',
+                                        transform: x.interpolate(x => `translateY(${x}px)`),
+                                    }}
+                                />
+                            </Box>
+
+
                         </Flex>
 
-                        <Flex
-                            justifyContent="center" // Yatayda ortala
-
-                        >
-                            <Button
-                                whiteSpace="pre-line"
-                                fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
-                                fontSize="60px" // Responsive font boyutu ayarı
-                                textAlign="center"
-                                lineHeight="taller"
-                                mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
-                                fontWeight="bold"
-                                color="#00000"
-                                p={5}
-                                backgroundColor={isFlipped ? "#00000" : "#58A399"}
-
-                                onClick={() => { setIsFlipped(false); setSelectedButton(1) }}
-                            >
-                                Cevabını gör
-                            </Button>
-                            
-                        </Flex>
-                      
-                    <Box flex={1} position="absolute"  height="10px">
-                    <animated.div
-                        style={{
-                            position: 'absolute',
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '10px',
-                            backgroundColor: 'blue',
-                            top: '28px',
-                            transform: x.interpolate(x => `translateY(${x}px)`),
-                        }}
-                    />
-                    </Box>
-                
-                        
                     </Flex>
-                
-                        </Flex>
 
                 </Box>
-                
+
 
                 <Flex flex={1} justifyContent="center" alignItems="center" >
 
