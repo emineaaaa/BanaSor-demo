@@ -1,309 +1,81 @@
-import { Avatar, Badge, Box, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, HStack, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import Typewriter from "typewriter-effect";
-import TextComp from './TextComp';
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { BiLike, BiChat, BiShare, BiSolidLike, BiSolidShare } from "react-icons/bi";
-import { useSpring, animated } from 'react-spring';
-
-
+import { Box, Button, Divider, Flex, Icon, Image } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react'
+import { useSpring, animated, useSpringRef } from 'react-spring';
+const AnimatedDivider = animated(Divider);
 
 
 
 const Alperen = () => {
+    const [dersler, setDersler] = useState([]);
+    const [tumDersleriGoster, setTumDersleriGoster] = useState(false);
 
-    const [isFlipped, setIsFlipped] = useState(true);
-    const [liked, setLiked] = useState(false);
-    const [share, setShare] = useState(false)
-    const { transform, opacity } = useSpring({
-        opacity: isFlipped ? 1 : 0,
-        transform: `perspective(600px) rotateY(${isFlipped ? 180 : 0}deg)`,
-        config: { mass: 5, tension: 500, friction: 80 },
-    });
-    const frontshareInfo = () => {
-        setShare(!share)
-        navigator.share({
-            url: window.location.href
-        })
-    }
-    const backshareInfo = () => {
-        setShare(!share)
-        navigator.share({
-            url: window.location.href
-        })
-    }
     useEffect(() => {
-        AOS.init();
+        fetch('/dersler.json')
+            .then(response => response.json())
+            .then(data => setDersler(data.dersler));
     }, []);
 
-
-    // Topun animasyonunu tanımla
-    const { x } = useSpring({
-        x: isFlipped ? 0 : 85, // Örnek olarak, her buton arası 100px mesafe varsayıyoruz
-        config: { tension: 200, friction: 20 },
+    const dersleriGoster = tumDersleriGoster ? dersler : dersler.slice(0, 11);
+const AnimatedFlex = animated(Flex);
+    const dahaFazlaAnimasyon = useSpring({
+        to: { 
+            opacity: 1, 
+            height: tumDersleriGoster ? 'auto' : '0px',
+            transform: tumDersleriGoster ? 'translateY(0%)' : 'translateY(-10%)',
+        },
+        from: { 
+            opacity: 1, 
+            height: 'auto', 
+            transform: 'translateY(-150%)',
+        },
+        config:{
+            duration: 200,
+        }
     });
-    const BackSide = () => (
-        <Flex flex={1}>
-            <Card maxW={{ base: '90%', md: 'md' }}>
-                <CardHeader>
-                    <Flex spacing='4'>
-                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                            <Avatar name='Emine Aydınlı' />
-                            <Box>
-                                <Heading size='sm'>Emine Aydınlı</Heading>
-                                <Flex align="center" justify="center" gap="2">
-                                    <Text>Matematik</Text>
-                                    <Box flexShrink={0} w={1.5} h={1.5} bg="gray.800" borderRadius="full" />
-                                    <Text>Lise</Text>
-                                </Flex>
-                            </Box>
-                        </Flex>
-                    </Flex>
-                </CardHeader>
-                <CardBody>
-                    <Text>
-                        With Chakra UI, I wanted to sync the speed of development with the speed
-                        of design. I wanted the developer to be just as excited as the designer to
-                        create a screen.
-                    </Text>
-                </CardBody>
-                <CardFooter
-                    justify='space-between'
-                    flexWrap='wrap'
-                    sx={{
-                        '& > button': {
-                            minW: '136px',
-                        },
-                    }}
-                >
-                     <Button onClick={backshareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
-                        Share
-                    </Button>
-                    
-                    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                        Comment
-                    </Button>
-                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
-                        Like
-                    </Button>
-                </CardFooter>
-            </Card>
-        </Flex>
-    );
-
-    const FrontSide = () => (
-        <Flex flex={1}>
-
-
-            <Card maxW='md'>
-                <CardHeader>
-                    <Flex spacing='4'>
-                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                            <Avatar name='Alperen Akal' />
-
-                            <Box>
-                                <Heading size='sm'>Alperen Akal</Heading>
-                                <Flex align="center" justify="center" gap="2">
-                                    <Text>Matematik</Text>
-                                    <Box flexShrink={0} w={1.5} h={1.5} bg="gray.800" borderRadius="full" />
-                                    <Text>Lise</Text>
-                                </Flex>
-                            </Box>
-                        </Flex>
-
-                    </Flex>
-                </CardHeader>
-                <CardBody>
-                    <Text>
-                        With Chakra UI, I wanted to sync the speed of development with the speed
-                        of design. I wanted the developer to be just as excited as the designer to
-                        create a screen.
-                    </Text>
-                </CardBody>
-
-
-                <CardFooter
-                    justify='space-between'
-                    flexWrap='wrap'
-                    sx={{
-                        '& > button': {
-                            minW: '136px',
-                        },
-                    }}
-                >
-                    <Button flex='1' variant='ghost' leftIcon={liked ? <BiSolidLike /> : <BiLike />} onClick={() => setLiked(!liked)}>
-                        Like
-                    </Button>
-                    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                        Comment
-                    </Button>
-                    <Button onClick={frontshareInfo} flex='1' variant='ghost' leftIcon={share ? <BiSolidShare /> : <BiShare />}>
-                        Share
-                    </Button>
-                </CardFooter>
-            </Card>
-
-
-
-
-
-        </Flex>
-
-    );
-
-
     return (
-        <Flex flexDirection="column" gap={2} mb={2} py={5}>
-            <Flex align="center" flexDirection={"column"}>
-                <Box>
-                    <div data-aos="flip-left">
-                        <Image
-                            src={"/verified.svg"}
-                            w={"100px"}
-                            h={"100px"}
-
-                        />
-                    </div>
-                </Box>
-                <Box>
-                    <Text
-                        whiteSpace="pre-line"
-                        fontFamily="Source Code Pro, monospace" // Projenize uygun bir font ile değiştirebilirsiniz.
-                        fontSize={{ base: "lg", md: "xl", lg: "2xl" }} // Responsive font boyutu ayarı
-                        textAlign="center"
-                        lineHeight="taller"
-                        mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
-                        fontWeight={"bold"}
-                    > <Typewriter
-                            options={{
-                                strings: [
-                                    "Bir soru sormak, bilginin kapılarını aralar.",
-                                    "Her cevap, yeni ufuklar açar.",
-                                    "Birlikte öğrenelim, birlikte büyüyelim."
-                                ],
-                                autoStart: true,
-                                loop: true,
-                                delay: 100
-                            }}
-                        />
-                    </Text>
-                </Box>
-
-
-            </Flex>
-            <Divider m={1} borderColor={"#58A399"} borderWidth={"2px"} />
-            <Flex flexDir={"row"} w={"100%"} gap={5}>
-
-                <Box flex={1} >
-                    <Flex flexDirection="column" alignItems="center" gap="4">
-                        <Flex m={5} p={5} direction={"column"} gap={5}>
-                            <Flex
-                                justifyContent="center" // Yatayda ortala
-
-                            >
-                                <Button
-                                    whiteSpace="pre-line"
-                                    fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
-                                    fontSize={{ base: 'md', md: '4xl' }}// Responsive font boyutu ayarı
-                                    textAlign="center"
-                                    lineHeight="taller"
-                                    mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
-                                    fontWeight="bold"
-                                    height={30}
-                                    size='md'
-                                    color="#00000"
-                                    backgroundColor={isFlipped ? "#58A399" : "#00000"}
-
-                                    p={5}
-
-                                    onClick={() => { setIsFlipped(true); setSelectedButton(0); }}
-                                >
-                                    Sorunu Sor
-                                </Button>
-                            </Flex>
-
-                            <Flex
-                                justifyContent="center" // Yatayda ortala
-
-                            >
-                                <Button
-                                    whiteSpace="pre-line"
-                                    fontFamily="ProximaNova, Helvetica, Arial, sans-serif;" // Projenize uygun bir font ile değiştirebilirsiniz.
-                                    fontSize={{ base: 'lg', md: '4xl' }}// Responsive font boyutu ayarı
-                                    textAlign="center"
-                                    size='lg'
-                                    lineHeight="taller"
-                                    mt={5} // Üstten boşluk ekleyerek metni daha rahat okunabilir yapar
-                                    fontWeight="bold"
-                                    color="#00000"
-                                    p={5}
-                                    backgroundColor={isFlipped ? "#00000" : "#58A399"}
-
-                                    onClick={() => { setIsFlipped(false); setSelectedButton(1) }}
-                                >
-                                    Cevabını gör
-                                </Button>
-
-                            </Flex>
-
-                            <Box flex={1} position="absolute" height="10px">
-                                <animated.div
-                                    style={{
-                                        position: 'absolute',
-                                        width: '20px',
-                                        height: '20px',
-                                        borderRadius: '10px',
-                                        backgroundColor: 'blue',
-                                        top: '28px',
-                                        transform: x.interpolate(x => `translateY(${x}px)`),
-                                    }}
-                                />
+        <Flex direction="column" alignItems="center" justifyContent="center" p={"5px"}>
+            <h2>Ders Listesi</h2>
+            <AnimatedFlex style={dahaFazlaAnimasyon}   wrap="wrap" justify="center" gap={10} width={"1100px"} mt={"3"}>
+                {dersleriGoster.map(ders => (
+                    <Button 
+                        key={ders.id} 
+                        mt={"10px"} 
+                        bg={"transparent"} 
+                        _hover={{ bg: "transparent" }} // Hover efektini kaldırır
+                        variant="unstyled" // Butonun tüm stilini kaldırır
+                        alignItems="center" // Buton içeriğini merkezler
+                        onClick={()=>console.log(ders.name)}
+                        
+                    >
+                        {/* Buton içeriğini Flex bileşeni ile düzenle */}
+                        <Flex direction="column" alignItems="center" gap={2}>
+                            <Image src={`/derslerimg/${ders.icon}`} boxSize="50px" />
+                            <Box
+                                fontSize={"12px"}
+                                fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}
+                                textAlign="center"
+                                mt={2}>
+                                {ders.name}
                             </Box>
-
-
                         </Flex>
-
-                    </Flex>
-
-                </Box>
-
-
-                <Flex flex={1} justifyContent="center" alignItems="center" >
-
-
-                    <animated.div
-                        style={{
-                            opacity: opacity.interpolate(o => 1 - o),
-                            transform,
-                        }}
-                    >
-                        <BackSide />
-
-                    </animated.div>
-
-                    <animated.div
-                        style={{
-                            opacity,
-                            transform: transform.interpolate(t => `${t} rotateY(180deg)`),
-                            position: 'absolute',
-                        }}
-                    >
-                        <FrontSide />
-                    </animated.div>
-
-
-
-
-                </Flex>
-
-
-
+                    </Button>
+                ))}
+            </AnimatedFlex>
+            <Flex mt="50px" alignItems="center" justifyContent="center" width="87%">
+                <AnimatedDivider style={dahaFazlaAnimasyon} borderColor="#58A399" borderWidth="2px" flex={1} />
+                <Button 
+                    mx="2" 
+                    size="sm" 
+                    onClick={() => setTumDersleriGoster(!tumDersleriGoster)}
+                    bg={"transparent"}
+                >
+                    {tumDersleriGoster ? "Daha Az" : "Daha Fazlası"} 
+                </Button>
+                <AnimatedDivider style={dahaFazlaAnimasyon} borderColor="#58A399" borderWidth="2px" flex={1} />
             </Flex>
-
-        </Flex >
-    );
+        </Flex>
+    )
 }
 
-export default Alperen;
+export default Alperen
+
