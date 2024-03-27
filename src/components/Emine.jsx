@@ -19,15 +19,7 @@ const Emine = () => {
             { name: "Osman Yıldırım", puan: 78, src: "https://randomuser.me/api/portraits/men/9.jpg" },
             { name: "Ali Doğan", puan: 84, src: "https://randomuser.me/api/portraits/women/10.jpg" },
             { name: "Hatice Aydın", puan: 89, src: "https://randomuser.me/api/portraits/men/11.jpg" },
-            { name: "İbrahim Özdemir", puan: 91, src: "https://randomuser.me/api/portraits/women/12.jpg" },
-            { name: "Derya Yılmaz", puan: 82, src: "https://randomuser.me/api/portraits/men/13.jpg" },
-            { name: "Burak Korkmaz", puan: 77, src: "https://randomuser.me/api/portraits/women/14.jpg" },
-            { name: "Ceren Tekin", puan: 94, src: "https://randomuser.me/api/portraits/men/15.jpg" },
-            { name: "Kerem Şen", puan: 86, src: "https://randomuser.me/api/portraits/women/16.jpg" },
-            { name: "Ebru Özkan", puan: 79, src: "https://randomuser.me/api/portraits/men/17.jpg" },
-            { name: "Serkan Gür", puan: 83, src: "https://randomuser.me/api/portraits/women/18.jpg" },
-            { name: "Selin Çetin", puan: 88, src: "https://randomuser.me/api/portraits/men/19.jpg" },
-            { name: "Oğuz Aksoy", puan: 90, src: "https://randomuser.me/api/portraits/women/20.jpg" }
+           
         ];
         
    
