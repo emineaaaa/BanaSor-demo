@@ -15,6 +15,7 @@ function App() {
  
 
   return (
+    
    <Container maxW={"90%"} flexDirection={"column"}  >
     <Navbar/>
     <Routes>
