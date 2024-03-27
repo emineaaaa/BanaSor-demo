@@ -5,9 +5,10 @@ import { Container, Flex } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Alperen from './components/Alperen'
-import Emine from './components/Emine'
+
 import Huseyin from './components/Huseyin'
 import Beyza from './components/Beyza'
+import Emine from './components/Emine'
 
 
 
