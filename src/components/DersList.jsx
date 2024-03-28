@@ -2,7 +2,7 @@ import { Avatar, AvatarGroup, Box, Button, Card, CardBody, CardFooter, Divider, 
 
 import React, { useEffect, useState } from 'react'
 import { useSpring, animated, useSpringRef } from 'react-spring';
-import Emine from './Emine';
+import Emine from './RancedList';
 import { useNavigate } from 'react-router-dom';
 const AnimatedDivider = animated(Divider);
 const AnimatedFlex = animated(Flex);

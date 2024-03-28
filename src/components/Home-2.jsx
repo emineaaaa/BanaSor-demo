@@ -26,7 +26,7 @@ import Rating from './Rating';
 
 
 
-const home2 = () => {
+const Home2 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
 
@@ -180,5 +180,5 @@ const home2 = () => {
 
 
 }
-export default home2
+export default Home2
 

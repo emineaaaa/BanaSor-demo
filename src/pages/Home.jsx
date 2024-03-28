@@ -1,16 +1,22 @@
-import { Box, Container, Flex, Link } from '@chakra-ui/react'
+import { Box, Button, Container, Flex, Link } from '@chakra-ui/react'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Home2 from '../components/Home-2'
+import Home3 from '../components/Home-3'
 
 const Home = () => {
+
+  const navigate=useNavigate()
+
+  const handleClick=()=>{
+    navigate(`/sorulistesi`)
+  }
+
   return (
     <div>
-        <Flex flexDirection={"column"}  bg={"tomato"} >
-        <Link  href={"alperen"}  color={"white"} cursor={"pointer"} > ALperen</Link>
-        <Link href={"emine"}  color={"white"} cursor={"pointer"}> EMine</Link>
-        <Link href={"huseyin"}  color={"white"} cursor={"pointer"}> Huseyin</Link>
-        <Link href={"beyza"}  color={"white"} cursor={"pointer"}> Beyza</Link>
-        </Flex>
+       <Button onClick={handleClick}>Soru Listesi</Button>
+       <Home2/>
+       <Home3/>
 
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Avatar, AvatarGroup, Box, Button, Card, CardBody, CardFooter, Flex, Image, Text } from '@chakra-ui/react';
-import Emine from './Emine';
+import Emine from './RancedList';
 import DersList from './DersList';
 
 const SoruDetail = () => {

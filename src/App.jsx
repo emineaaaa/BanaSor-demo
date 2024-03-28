@@ -4,11 +4,11 @@ import Footer from './components/Footer'
 import { Container, Flex } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import Alperen from './components/Alperen'
+import SoruListesi from './components/SoruListesi'
 
 import Huseyin from './components/Huseyin'
 import Beyza from './components/Beyza'
-import Emine from './components/Emine'
+import Emine from './components/RancedList'
 import KonuList from './components/KonuList'
 
 
@@ -22,7 +22,7 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/alperen' element={<Alperen/>}/>
+      <Route path='/sorulistesi' element={<SoruListesi/>}/>
       <Route path='/emine' element={<Emine/>}/>
       <Route path='/huseyin' element={<Huseyin/>}/>
       <Route path='/beyza' element={<Beyza/>}/>
