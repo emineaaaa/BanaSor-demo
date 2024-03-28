@@ -4,12 +4,11 @@ import React, { useEffect, useState } from 'react'
 import { useSpring, animated, useSpringRef } from 'react-spring';
 import Emine from './RancedList';
 import { useNavigate } from 'react-router-dom';
-import DersList from './DersList';
 const AnimatedDivider = animated(Divider);
 
 
 
-const SoruListesi = () => {
+const Alperen = () => {
     const [dersler, setDersler] = useState([]);
     const [tumDersleriGoster, setTumDersleriGoster] = useState(false);
     const [sorular, setSorular] = useState([]);
@@ -33,6 +32,10 @@ const SoruListesi = () => {
         // Burada istediğiniz işlemi gerçekleştirebilirsiniz.
     };
 
+    const handleClick2=(soruid)=>{
+        navigate(`/sorudetay/${soruid}`)
+    }
+
     const dersleriGoster = tumDersleriGoster ? dersler : dersler.slice(0, 11);
     const AnimatedFlex = animated(Flex);
     const dahaFazlaAnimasyon = useSpring({
@@ -52,10 +55,58 @@ const SoruListesi = () => {
     });
     console.log(sorular);
     return (
-        <Flex direction={"column"}>
+        <Flex direction={"row"}>
             <Flex direction="column" alignItems="center" justifyContent="center" p="5px" w="100%">
-               
-                <DersList/>
+                <h2>Ders Listesi</h2>
+                <AnimatedFlex
+                    style={dahaFazlaAnimasyon}
+                    wrap="wrap"
+                    justify="center"
+                    gap={10}
+                    maxWidth="1100px"
+                    mt={"3"}
+                    width="100%" // Her zaman ekran genişliğine uyum sağlar
+                    alignItems={"center"}
+
+
+
+                >
+                    {dersleriGoster.map(ders => (
+                        <Button
+                            key={ders.id}
+                            mt={"10px"}
+                            bg={"transparent"}
+                            _hover={{ bg: "transparent" }} // Hover efektini kaldırır
+                            variant="unstyled" // Butonun tüm stilini kaldırır
+                            alignItems="center" // Buton içeriğini merkezler
+                            onClick={() => handleClick(ders.name)}
+                        >
+                            {/* Buton içeriğini Flex bileşeni ile düzenle */}
+                            <Flex direction="column" alignItems="center" gap={2}>
+                                <Image src={`/derslerimg/${ders.icon}`} boxSize="50px" />
+                                <Box
+                                    fontSize={"12px"}
+                                    fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}
+                                    textAlign="center"
+                                    mt={2}>
+                                    {ders.name}
+                                </Box>
+                            </Flex>
+                        </Button>
+                    ))}
+                </AnimatedFlex>
+                <Flex mt="50px" alignItems="center" justifyContent="center" width="87%">
+                    <AnimatedDivider style={dahaFazlaAnimasyon} borderColor="#58A399" borderWidth="2px" flex={1} />
+                    <Button
+                        mx="2"
+                        size="sm"
+                        onClick={() => setTumDersleriGoster(!tumDersleriGoster)}
+                        bg={"transparent"}
+                    >
+                        {tumDersleriGoster ? "Daha Az" : "Daha Fazlası"}
+                    </Button>
+                    <AnimatedDivider style={dahaFazlaAnimasyon} borderColor="#58A399" borderWidth="2px" flex={1} />
+                </Flex>
                 <Flex direction={"row"} gap={20}>
                     <Flex direction="column" alignItems="center" justifyContent="center" p="5px" w="100%">
                         {sorular.flatMap(ders => ders.sorular.map(soru => ({ ...soru, dersIsim: ders.isim })))
@@ -88,6 +139,7 @@ const SoruListesi = () => {
                                                     borderRadius="md"
                                                     fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}
                                                     _active={{ bg: "gray.200" }}
+                                                    onClick={()=>handleClick2(soru.globalId)}
                                                 >
                                                     {soru.soru}
                                                 </Text>
@@ -121,5 +173,5 @@ const SoruListesi = () => {
     )
 }
 
-export default SoruListesi
+export default Alperen
 
