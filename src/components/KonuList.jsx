@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Avatar, AvatarGroup, Box, Button, Card, CardBody, CardFooter, Flex, Image, Text } from '@chakra-ui/react';
-import Emine from './RancedList';
+import RancedList from './RancedList';
 import DersList from './DersList';
 
 const SoruDetail = () => {
@@ -29,11 +29,11 @@ const SoruDetail = () => {
     return (
         
             <Flex direction={"column"}> {/* Yeni ana Flex, yönünü sütun olarak ayarla */}
-                <Flex direction={"row"} justifyContent="center"> {/* DersList'i içeren Flex */}
+                <Flex direction="column" alignItems="center" justifyContent="center" p="5px" w="100%"> {/* DersList'i içeren Flex */}
                     <DersList/>
                 </Flex>
-            
-                <Flex direction={"column"} alignItems="flex-start" justifyContent="center" p="5px" w="100%">
+                <Flex direction={"row"} gap={-1} >
+                <Flex direction="column" alignItems="center" justifyContent="center" p="5px" w="100%">
 
                 {sorular.map((soru, index) => (
                          <Flex minWidth={"608px"} maxWidth="608px" height="auto" px={4}>
@@ -85,9 +85,11 @@ const SoruDetail = () => {
                      </Flex>
                  
                 ))}
-                  <Flex>
-                        <Emine />
+                </Flex>
+                  <Flex pr={"100px"}>
+                        <RancedList />
                     </Flex>
+                    
             </Flex>
           
         </Flex>

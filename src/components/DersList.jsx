@@ -7,13 +7,21 @@ import { useNavigate } from 'react-router-dom';
 const AnimatedDivider = animated(Divider);
 const AnimatedFlex = animated(Flex);
 const DersList = () => {
+    const navigate =useNavigate();
     const [dersler, setDersler] = useState([]);
+
     const [tumDersleriGoster, setTumDersleriGoster] = useState(false);
     useEffect(() => {
         fetch('/dersler.json')
             .then(response => response.json())
             .then(data => setDersler(data.dersler));
     }, []);
+    const handleClick = (konu) => {
+        console.log('Metne tıklandı!');
+        navigate(`/konu/${konu}`);
+        // Burada istediğiniz işlemi gerçekleştirebilirsiniz.
+    };
+
     const dersleriGoster = tumDersleriGoster ? dersler : dersler.slice(0, 11);
 
     const dahaFazlaAnimasyon = useSpring({
