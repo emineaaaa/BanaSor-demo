@@ -32,6 +32,10 @@ const Alperen = () => {
         // Burada istediğiniz işlemi gerçekleştirebilirsiniz.
     };
 
+    const handleClick2=()=>{
+        navigate(`/sorudetay`)
+    }
+
     const dersleriGoster = tumDersleriGoster ? dersler : dersler.slice(0, 11);
     const AnimatedFlex = animated(Flex);
     const dahaFazlaAnimasyon = useSpring({
@@ -135,6 +139,7 @@ const Alperen = () => {
                                                     borderRadius="md"
                                                     fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}
                                                     _active={{ bg: "gray.200" }}
+                                                    onClick={handleClick2}
                                                 >
                                                     {soru.soru}
                                                 </Text>
