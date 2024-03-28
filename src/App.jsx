@@ -9,6 +9,7 @@ import Alperen from './components/Alperen'
 import Huseyin from './components/Huseyin'
 import Beyza from './components/Beyza'
 import Emine from './components/Emine'
+import KonuList from './components/KonuList'
 
 
 
@@ -25,6 +26,7 @@ function App() {
       <Route path='/emine' element={<Emine/>}/>
       <Route path='/huseyin' element={<Huseyin/>}/>
       <Route path='/beyza' element={<Beyza/>}/>
+      <Route path='/konu/:konu' element={<KonuList/>} />
 
 
 

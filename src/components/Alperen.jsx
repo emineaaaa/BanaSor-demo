@@ -3,6 +3,7 @@ import { Avatar, AvatarGroup, Box, Button, Card, CardBody, CardFooter, Divider, 
 import React, { useEffect, useState } from 'react'
 import { useSpring, animated, useSpringRef } from 'react-spring';
 import Emine from './Emine';
+import { useNavigate } from 'react-router-dom';
 const AnimatedDivider = animated(Divider);
 
 
@@ -11,6 +12,7 @@ const Alperen = () => {
     const [dersler, setDersler] = useState([]);
     const [tumDersleriGoster, setTumDersleriGoster] = useState(false);
     const [sorular, setSorular] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('/dersler.json')
@@ -24,8 +26,9 @@ const Alperen = () => {
             .then(response => response.json())
             .then(data => setSorular(data.sorular)); // Burada setSorular kullanılmalı
     }, []);
-    const handleClick = () => {
+    const handleClick = (konu) => {
         console.log('Metne tıklandı!');
+        navigate(`/konu/${konu}`);
         // Burada istediğiniz işlemi gerçekleştirebilirsiniz.
     };
 
@@ -72,8 +75,7 @@ const Alperen = () => {
                             _hover={{ bg: "transparent" }} // Hover efektini kaldırır
                             variant="unstyled" // Butonun tüm stilini kaldırır
                             alignItems="center" // Buton içeriğini merkezler
-                            onClick={() => console.log(ders.name)}
-
+                            onClick={() => handleClick(ders.name)}
                         >
                             {/* Buton içeriğini Flex bileşeni ile düzenle */}
                             <Flex direction="column" alignItems="center" gap={2}>
@@ -117,6 +119,7 @@ const Alperen = () => {
                                                         _hover={{ bg: "transparent", textDecoration: "underline" }}
                                                         alignItems="center"
                                                         fontWeight="bold" fontFamily="heading"
+                                                        onClick={() => handleClick(soru.dersIsim)}
                                                     >
                                                         {soru.dersIsim}
                                                     </Button>

@@ -1,8 +1,12 @@
 import React from 'react'
+import DersList from './DersList'
 
 const Beyza = () => {
   return (
-    <div>Beyza</div>
+    <div className="ders">
+       <DersList></DersList>
+    </div>
+      
   )
 }
 
