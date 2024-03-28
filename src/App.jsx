@@ -32,7 +32,7 @@ function App() {
       <Route path='/huseyin' element={<Huseyin/>}/>
       <Route path='/beyza' element={<Beyza/>}/>
       <Route path='/konu/:konu' element={<KonuList/>} />
-      <Route path='/sorudetay' element={<SoruDetay/>}/>
+      <Route path='/sorudetay/:soruid' element={<SoruDetay/>}/>
 
 
 
