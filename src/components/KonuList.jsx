@@ -25,6 +25,7 @@ const SoruDetail = () => {
         console.log(`${dersIsim} tıklandı.`);
         // Burada ders ismine göre bir aksiyon gerçekleştirebilirsiniz.
     };
+    
 
     return (
         
