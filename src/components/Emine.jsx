@@ -18,7 +18,7 @@ const Emine = () => {
             { name: "Elif Erdoğan", puan: 93, src: "https://randomuser.me/api/portraits/women/8.jpg" },
             { name: "Osman Yıldırım", puan: 78, src: "https://randomuser.me/api/portraits/men/9.jpg" },
             { name: "Ali Doğan", puan: 84, src: "https://randomuser.me/api/portraits/women/10.jpg" },
-            { name: "Hatice Aydın", puan: 89, src: "https://randomuser.me/api/portraits/men/11.jpg" },
+            { name: "fadime Aydın", puan: 89, src: "https://randomuser.me/api/portraits/men/11.jpg" },
            
         ];
         
