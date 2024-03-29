@@ -10,11 +10,11 @@ import Huseyin from './components/Huseyin'
 import Beyza from './components/Beyza'
 import Emine from './components/RancedList'
 import KonuList from './components/KonuList'
-<<<<<<< HEAD
+
 import AllSoruListesi from './pages/AllSoruListesi'
-=======
+
 import SoruDetay from './components/SoruDetay'
->>>>>>> 1c518cc7fe38bb34aca192534a6f2b479e03e061
+
 
 
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Text, Flex, Avatar, Button, Box, Image, CardBody, CardFooter } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { TimeCal } from './TimeCal';
 
 const SoruDetay = () => {
     const [soru, setSorular] = useState([]);
@@ -26,30 +27,10 @@ const SoruDetay = () => {
 
     
     if(!soru)return <div>Yüklüyor...</div>
-    const zamanFarkiniFormatla = (baslangicTarihi) => {
-        const simdi = new Date();
-        const gecmisZaman = new Date(baslangicTarihi);
-        let fark = simdi - gecmisZaman; // Milisaniye cinsinden
-      
-        // Farkı sırasıyla gün, saat ve dakikaya çevir
-        const gunFarki = Math.floor(fark / (1000 * 60 * 60 * 24));
-        fark -= gunFarki * (1000 * 60 * 60 * 24);
-        
-        const saatFarki = Math.floor(fark / (1000 * 60 * 60));
-        fark -= saatFarki * (1000 * 60 * 60);
-        
-        const dakikaFarki = Math.floor(fark / (1000 * 60));
-      
-        // En uygun birimi döndür
-        if (gunFarki > 0) {
-          return `${gunFarki} gün`;
-        } else if (saatFarki > 0) {
-          return `${saatFarki} saat`;
-        } else {
-          return `${dakikaFarki} dakika`;
-        }
-      };
-      const zamanFarki = zamanFarkiniFormatla(soru?.soruSorulmaSuresi);
+   
+    const zamanFarki = soru?  TimeCal(soru.soruSorulmaSuresi) : "EVVEL ZAMAN ÖNCE";
+    const simdi = new Date();
+    
     
 
 
@@ -61,7 +42,7 @@ const SoruDetay = () => {
                     <Flex minWidth={"608px"} maxWidth="608px" height="auto" px={4}>
                         <Card overflow='hidden' variant='outline' sx={{ minWidth: '608px', maxWidth: '608px', minHeight: '200px' }}>
                             <Flex pl={"20px"} pt={"15px"} alignItems="center">
-                                <Avatar size={"sm"} src="/alperen.img" />
+                                <Avatar size={"sm"} src={soru.avatar} name={`${soru.isim} ${soru.soyisim}`} />
                                 <Flex alignItems="center" ml={2}>
                                     <Button
                                         bg="transparent"
@@ -70,7 +51,7 @@ const SoruDetay = () => {
                                         fontWeight="bold" fontFamily="heading"
                                        
                                     >
-                                        Alperen Akal
+                                        {soru.isim} {soru.soyisim}
                                     </Button>
                                     <Box w={1} h={1} bg="gray.800" borderRadius="full" ml={2} />
                                     <Button
