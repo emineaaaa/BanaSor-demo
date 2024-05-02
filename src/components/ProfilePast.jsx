@@ -14,6 +14,10 @@ const ProfilePast = () => {
    navigate(`/sorulistesi`);
     // Burada istediğiniz işlemi gerçekleştirebilirsiniz.
 };
+
+const handleClick2=()=>{
+  navigate("/sorusorsayfasi")
+}
   return (
     <Flex direction={"column"}>
       <Flex>
@@ -51,7 +55,7 @@ const ProfilePast = () => {
           <Flex direction={"column"} alignItems={"center"} fontWeight={"bold"} gap={3}>
             <FaQuestion fontSize={"25px"} />
             <Text color={"dark"}>Henüz hiç soru sormadın.</Text>
-            <Button width={"200px"} borderRadius={"30px"} fontWeight={"bold"} gap={2} bg={"#36454F"} color={"white"}>
+            <Button width={"200px"} borderRadius={"30px"} fontWeight={"bold"} gap={2} bg={"#36454F"} color={"white"} onClick={handleClick2} >
               Sorunu Sor
             </Button>
           </Flex>

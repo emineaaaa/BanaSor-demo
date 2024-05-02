@@ -14,13 +14,13 @@ import KonuList from './components/KonuList'
 import AllSoruListesi from './pages/AllSoruListesi'
 
 import SoruDetay from './components/SoruDetay'
-<<<<<<< HEAD
+
 import SoruSorSayfasi from './components/SoruSorSayfasi'
 import SoruArama from './components/SoruArama'
-=======
+
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
->>>>>>> refs/remotes/origin/main
+
 
 
 
@@ -40,13 +40,12 @@ function App() {
       <Route path='/beyza' element={<Beyza/>}/>
       <Route path='/konu/:konu' element={<KonuList/>} />
       <Route path='/sorudetay/:soruid' element={<SoruDetay/>}/>
-<<<<<<< HEAD
+
       <Route path='/sorusorsayfasi' element={<SoruSorSayfasi/>}/>
 
-=======
+
       <Route path='/profile'  element={<Profile/>}/>
       <Route path='/profileedit' element={<ProfileEdit/>} />
->>>>>>> refs/remotes/origin/main
 
 
 
