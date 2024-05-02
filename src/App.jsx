@@ -10,11 +10,13 @@ import Huseyin from './components/Huseyin'
 import Beyza from './components/Beyza'
 import Emine from './components/RancedList'
 import KonuList from './components/KonuList'
-<<<<<<< HEAD
+
 import AllSoruListesi from './pages/AllSoruListesi'
-=======
+
 import SoruDetay from './components/SoruDetay'
->>>>>>> 1c518cc7fe38bb34aca192534a6f2b479e03e061
+import SoruSorSayfasi from './components/SoruSorSayfasi'
+import SoruArama from './components/SoruArama'
+
 
 
 
@@ -33,6 +35,8 @@ function App() {
       <Route path='/beyza' element={<Beyza/>}/>
       <Route path='/konu/:konu' element={<KonuList/>} />
       <Route path='/sorudetay/:soruid' element={<SoruDetay/>}/>
+      <Route path='/sorusorsayfasi' element={<SoruSorSayfasi/>}/>
+
 
 
 

@@ -12,9 +12,15 @@ const Home = () => {
     navigate(`/sorulistesi`)
   }
 
+  const handleClick2=()=>{
+    navigate(`/sorusorsayfasi`)
+  }
+
   return (
     <div>
        <Button onClick={handleClick}>Soru Listesi</Button>
+       <Button onClick={handleClick2}>Soru Sor</Button>
+
        <Home2/>
        <Home3/>
 
