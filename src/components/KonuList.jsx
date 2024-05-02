@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Avatar, AvatarGroup, Box, Button, Card, CardBody, CardFooter, Flex, Image, Text } from '@chakra-ui/react';
 import RancedList from './RancedList';
 import DersList from './DersList';
@@ -7,6 +7,7 @@ import DersList from './DersList';
 const SoruDetail = () => {
     const { konu } = useParams(); // konu parametresini al
     const [sorular, setSorular] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('/sorular.json') // Veri kaynağınızın URL'si
@@ -22,9 +23,12 @@ const SoruDetail = () => {
 
     // handleClick fonksiyonu (Örnek amaçlı, detaylar sizin kullanımınıza göre değişebilir)
     const handleClick = (dersIsim) => {
-        console.log(`${dersIsim} tıklandı.`);
-        // Burada ders ismine göre bir aksiyon gerçekleştirebilirsiniz.
+        navigate(`/konu/${dersIsim}`)
     };
+    const handleClick2=(soruid)=>{
+        navigate(`/sorudetay/${soruid}`)
+    }
+    
 
     return (
         
@@ -39,7 +43,7 @@ const SoruDetail = () => {
                          <Flex minWidth={"608px"} maxWidth="608px" height="auto" px={4}>
                          <Card overflow='hidden' variant='outline' sx={{ minWidth: '608px', maxWidth: '608px', minHeight: '200px' }}>
                              <Flex pl={"20px"} pt={"15px"} alignItems="center">
-                                 <Avatar size={"sm"} name='Alperen Akal' />
+                                 <Avatar size={"sm"} name={`${soru.isim} ${soru.soyisim}`} src={soru.avatar} />
                                  <Flex alignItems="center">
                                      <Button
                                          ml={2}
@@ -63,6 +67,7 @@ const SoruDetail = () => {
                                      borderRadius="md"
                                      fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}
                                      _active={{ bg: "gray.200" }}
+                                     onClick={()=>handleClick2(soru.globalId)}
                                  >
                                      {soru.soru}
                                  </Text>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useSpring, animated, useSpringRef } from 'react-spring';
 import Emine from './RancedList';
 import { useNavigate } from 'react-router-dom';
+import { TimeCal } from './TimeCal';
 const AnimatedDivider = animated(Divider);
 
 
@@ -24,7 +25,16 @@ const Alperen = () => {
     useEffect(() => {
         fetch('/sorular.json')
             .then(response => response.json())
-            .then(data => setSorular(data.sorular)); // Burada setSorular kullanılmalı
+            .then(data => {
+ 
+                const filtrelenmisSorular = data.sorular
+                    .flatMap(ders => 
+                        ders.sorular.map(soru => 
+                            ({ ...soru, dersIsim: ders.isim, zamanFarki:TimeCal(soru.soruSorulmaSuresi) }))) 
+      
+                setSorular(filtrelenmisSorular);
+            });
+            
     }, []);
     const handleClick = (konu) => {
         console.log('Metne tıklandı!');
@@ -109,13 +119,12 @@ const Alperen = () => {
                 </Flex>
                 <Flex direction={"row"} gap={20}>
                     <Flex direction="column" alignItems="center" justifyContent="center" p="5px" w="100%">
-                        {sorular.flatMap(ders => ders.sorular.map(soru => ({ ...soru, dersIsim: ders.isim })))
-                            .map((soru, index) => (
+                        {sorular.map((soru, index) => (
                                 <Flex justifyContent="flex-start" p="5px" w="100%" pl="65px" key={soru.globalId}>
                                     <Flex minWidth={"608px"} maxWidth="608px" height="auto" px={4}>
                                         <Card overflow='hidden' variant='outline' sx={{ minWidth: '608px', maxWidth: '608px', minHeight: '200px' }}>
                                             <Flex pl={"20px"} pt={"15px"} alignItems="center">
-                                                <Avatar size={"sm"} name='Alperen Akal' />
+                                                <Avatar size={"sm"} name={`${soru.isim} ${soru.soyisim}`} src={soru.avatar} />
                                                 <Flex alignItems="center">
                                                     <Button
                                                         ml={2}
@@ -129,7 +138,7 @@ const Alperen = () => {
                                                     </Button>
                                                     <Box w={1} h={1} bg="gray.800" borderRadius="full" ml={2} />
                                                 </Flex>
-                                                <Text pl={2} fontSize="sm" fontWeight="bold" fontFamily="heading">1 dakika önce</Text>
+                                                <Text pl={2} fontSize="sm" fontWeight="bold" fontFamily="heading">{soru.zamanFarki}</Text>
                                             </Flex>
 
                                             <CardBody pl={"50px"} p={2}>
