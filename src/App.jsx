@@ -14,6 +14,8 @@ import KonuList from './components/KonuList'
 import AllSoruListesi from './pages/AllSoruListesi'
 
 import SoruDetay from './components/SoruDetay'
+import Profile from './pages/Profile'
+import ProfileEdit from './pages/ProfileEdit'
 
 
 
@@ -33,6 +35,8 @@ function App() {
       <Route path='/beyza' element={<Beyza/>}/>
       <Route path='/konu/:konu' element={<KonuList/>} />
       <Route path='/sorudetay/:soruid' element={<SoruDetay/>}/>
+      <Route path='/profile'  element={<Profile/>}/>
+      <Route path='/profileedit' element={<ProfileEdit/>} />
 
 
 
