@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Card, Text, Flex, Avatar, Button, Box, Image, CardBody, CardFooter } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TimeCal } from './TimeCal';
+import { FaPencilAlt } from "react-icons/fa";
+
 
 const SoruDetay = () => {
     const [soru, setSorular] = useState([]);
@@ -28,6 +30,9 @@ const SoruDetay = () => {
         navigate(`/profile/${name}`)
     }
 
+    const handleClick3=(soruid)=>{
+        navigate(`/sorugüncelle/${soruid}`)
+    }
     
     if(!soru)return <div>Yüklüyor...</div>
    
@@ -72,8 +77,19 @@ const SoruDetay = () => {
                                     </Button>
                                 </Flex>
                                 <Text pl={2} fontSize="xs" fontFamily="heading">{zamanFarki}</Text>
+
+                                <Button 
+                                               marginLeft="auto"  
+                                               size="m" 
+                                               marginRight="25px"
+                                               onClick={() => handleClick3(soru.globalId)}
+                                               >
+                                                
+                                                <FaPencilAlt />
+                                                </Button>
                             </Flex>
                             <CardBody pl={"50px"} p={2}>
+                           
                                 <Text
                                     borderRadius="md"
                                     fontFamily={"ProximaNova, Helvetica, Arial, sans-serif"}

@@ -20,6 +20,7 @@ import SoruArama from './components/SoruArama'
 
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
+import SoruGüncelle from './components/SoruGüncelle'
 
 
 
@@ -42,6 +43,8 @@ function App() {
       <Route path='/sorudetay/:soruid' element={<SoruDetay/>}/>
 
       <Route path='/sorusorsayfasi' element={<SoruSorSayfasi/>}/>
+      <Route path='/sorugüncelle/:soruid' element={<SoruGüncelle/>}/>
+
 
 
       <Route path='/profile/:name'  element={<Profile/>}/>

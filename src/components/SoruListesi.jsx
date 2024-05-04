@@ -6,6 +6,7 @@ import Emine from './RancedList';
 import { useNavigate } from 'react-router-dom';
 import { TimeCal } from './TimeCal';
 const AnimatedDivider = animated(Divider);
+import { FaPencilAlt } from "react-icons/fa";
 
 
 
@@ -44,6 +45,9 @@ const Alperen = () => {
 
     const handleClick2=(soruid)=>{
         navigate(`/sorudetay/${soruid}`)
+    }
+    const handleClick3=(soruid)=>{
+        navigate(`/sorugüncelle/${soruid}`)
     }
 
     const dersleriGoster = tumDersleriGoster ? dersler : dersler.slice(0, 11);
@@ -139,6 +143,16 @@ const Alperen = () => {
                                                     <Box w={1} h={1} bg="gray.800" borderRadius="full" ml={2} />
                                                 </Flex>
                                                 <Text pl={2} fontSize="sm" fontWeight="bold" fontFamily="heading">{soru.zamanFarki}</Text>
+                                               
+                                               <Button 
+                                               marginLeft="auto"  
+                                               size="m" 
+                                               marginRight="25px"
+                                               onClick={() => handleClick3(soru.globalId)}
+                                               >
+                                                
+                                                <FaPencilAlt />
+                                                </Button>
                                             </Flex>
 
                                             <CardBody pl={"50px"} p={2}>
@@ -152,6 +166,9 @@ const Alperen = () => {
                                                 >
                                                     {soru.soru}
                                                 </Text>
+                                               
+                                                
+
                                             </CardBody>
 
                                             <CardFooter pl={"50px"} gap={3} display="flex">
