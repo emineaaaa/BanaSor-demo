@@ -1,13 +1,13 @@
 import { Avatar, Box, Button, Flex } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { FaPencilAlt,FaGraduationCap,FaCalendarAlt,FaUserPlus  } from "react-icons/fa";
+import { FaPencilAlt, FaGraduationCap, FaCalendarAlt, FaUserPlus } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-const ProfileName = () => {
+const ProfileName = ({ name }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const navigate = useNavigate();
-  const handleClick =() =>{
+  const handleClick = () => {
     navigate("/profileedit")
   }
   const handleFollowClick = () => {
@@ -27,7 +27,7 @@ const ProfileName = () => {
       p="5px"
       w="100%"
       pl={"30px"}
-      
+
       maxW={"450px"}
     >
       <Flex direction="column" w="100%">
@@ -37,7 +37,7 @@ const ProfileName = () => {
             bg="teal.500"
           />
           <Flex direction="column" ml="10px" alignItems="flex-start">
-            <Flex>Alperen Akal</Flex>
+            <Flex>{name}</Flex>
             <Flex
               bg="gray"
               color="white"
@@ -50,29 +50,31 @@ const ProfileName = () => {
           </Flex>
         </Flex>
         <Flex direction="row" align="center" justify="space-between" p="20px" bg="#EEEEEE">
-      <Flex
-        alignItems="center"
-        justifyContent="flex-start"
-        pl="30px"
-        bg="#58A399"
-        w="30%"
-        fontWeight="bold"
-        height="50px"
-      >
-        Çirak
-      </Flex>
-      <Button
-      size="lg" 
-      bg="#EEE" 
-      height="50px" 
-      width="300px" 
-      leftIcon={<FaUserPlus size="1.5em" />} 
-      onClick={handleFollowClick}
-    >
-        {isFollowing ? "Takipten Çık" : "Takip Et"}
-    </Button>
-    </Flex>
-        
+          <Flex
+            alignItems="center"
+            justifyContent="flex-start"
+            pl="30px"
+            bg="#58A399"
+            w="30%"
+            fontWeight="bold"
+            height="50px"
+          >
+            Çirak
+          </Flex>
+          {name !== "Alperen Akal" && (
+            <Button
+              size="lg"
+              bg="#EEE"
+              height="50px"
+              width="300px"
+              leftIcon={<FaUserPlus size="1.5em" />}
+              onClick={handleFollowClick}
+            >
+              {isFollowing ? "Takipten Çık" : "Takip Et"}
+            </Button>
+          )}
+        </Flex>
+
       </Flex>
       <Flex alignItems="flex-start" mt="30px">
         <Flex direction="row" alignItems="center" gap={8} mr={"auto"}>
@@ -90,7 +92,7 @@ const ProfileName = () => {
               Takip Sayisi
             </Flex>
             <Flex fontWeight={"bold"}>
-            {followerCount}
+              {followerCount}
             </Flex>
           </Flex>
           <Box height="30px" width="3px" bg="gray.200" />
@@ -104,20 +106,23 @@ const ProfileName = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex alignItems="flex-start" mt="30px" >
+      {name == "Alperen Akal" && (
+        <Flex alignItems="flex-start" mt="30px" >
         <Button width={"300px"} borderRadius={"30px"} fontWeight={"bold"} gap={2} onClick={handleClick}>
           <FaPencilAlt />
           Profili Düzenle
         </Button>
       </Flex>
-      <Flex alignItems="flex-start" w="100%" mt="30px" direction={"column"}> 
+      )}
+      
+      <Flex alignItems="flex-start" w="100%" mt="30px" direction={"column"}>
         <Flex>
           Hakkinda
         </Flex>
         <Box height="5px" width="100%" bg="gray.200" mt={"4px"} />
         <Flex mt={"20px"} gap={3}>
           <Flex fontWeight={"bold"} fontSize={"25px"} >
-          <FaGraduationCap />
+            <FaGraduationCap />
           </Flex>
           <Flex fontWeight={"light"}>
             Seviye:
@@ -125,11 +130,11 @@ const ProfileName = () => {
           <Flex fontWeight={"bold"}>
             Üniversite
           </Flex>
-        
+
         </Flex>
         <Flex mt={"20px"} gap={3}>
           <Flex fontWeight={"bold"} fontSize={"25px"} >
-          <FaCalendarAlt />
+            <FaCalendarAlt />
 
 
           </Flex>
@@ -139,7 +144,7 @@ const ProfileName = () => {
           <Flex fontWeight={"bold"}>
             28.11.2000
           </Flex>
-        
+
         </Flex>
       </Flex>
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaQuestion ,FaCheck,FaPeopleArrows} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-const ProfilePast = () => {
+const ProfilePast = ({name}) => {
   // Soruları, cevapları ve takip ettikleri temsil eden state'ler
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -49,36 +49,51 @@ const handleClick2=()=>{
       </Flex>
 
       <Flex borderRadius={"30px"} bg={"gray.200"} mt={"30px"} height={"400px"} alignItems={"center"} justifyContent={"center"}>
-        {activeTab === 'questions' && (questions.length > 0 ? (
+        
+      {activeTab === 'questions' && (
+      name === "Alperen Akal" ? (
+        questions.length > 0 ? (
           questions.map((question, index) => <Text key={index} color={"white"}>{question}</Text>)
         ) : (
           <Flex direction={"column"} alignItems={"center"} fontWeight={"bold"} gap={3}>
             <FaQuestion fontSize={"25px"} />
             <Text color={"dark"}>Henüz hiç soru sormadın.</Text>
-            <Button width={"200px"} borderRadius={"30px"} fontWeight={"bold"} gap={2} bg={"#36454F"} color={"white"} onClick={handleClick2} >
+            <Button width={"200px"} borderRadius={"30px"} fontWeight={"bold"} gap={2} bg={"#36454F"} color={"white"} onClick={handleClick2}>
               Sorunu Sor
             </Button>
           </Flex>
-        ))}
-        {activeTab === 'answers' && (answers.length > 0 ? (
-          answers.map((answer, index) => <Text key={index} color={"white"}>{answer}</Text>)
-        ) : (
-            <Flex direction={"column"} alignItems={"center"} fontWeight={"bold"} gap={3}>
-            <FaCheck  fontSize={"25px"} />
-            <Text color={"dark"}>Henüz hiç cevap vermedin.</Text>
-            <Button 
-            width={"200px"} 
-            borderRadius={"30px"} 
-            fontWeight={"bold"} 
-            gap={2} 
-            bg={"#36454F"} 
-            color={"white"}
-            onClick={() =>handleClick()}
-            >
-              Soruları gör
-            </Button>
-          </Flex>
-        ))}
+        )
+      ) : (
+        <Text color={"dark"} fontWeight={"bold"}>Henüz soru sormamış.</Text>
+      )
+    )}
+        
+       
+        {activeTab === 'answers' && (
+            name === "Alperen Akal" ? (
+              answers.length > 0 ? (
+                answers.map((answer, index) => <Text key={index} color={"white"}>{answer}</Text>)
+              ) : (
+                  <Flex direction={"column"} alignItems={"center"} fontWeight={"bold"} gap={3}>
+                  <FaCheck  fontSize={"25px"} />
+                  <Text color={"dark"}>Henüz hiç cevap vermedin.</Text>
+                  <Button 
+                  width={"200px"} 
+                  borderRadius={"30px"} 
+                  fontWeight={"bold"} 
+                  gap={2} 
+                  bg={"#36454F"} 
+                  color={"white"}
+                  onClick={() =>handleClick()}
+                  >
+                    Soruları gör
+                  </Button>
+                </Flex>
+              )):(<Text color={"dark"} fontWeight={"bold"}>Henüz hiç bir soruya cevap verilmemiş</Text> )
+            )  }
+        
+        
+        
         {activeTab === 'followers' && (followers.length > 0 ? (
           followers.map((follower, index) => <Text key={index} color={"white"}>{follower}</Text>)
         ) : (

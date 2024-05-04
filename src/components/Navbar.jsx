@@ -6,6 +6,7 @@ import  { useState, useRef, useEffect } from 'react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
+  const navigate = useNavigate()
 
   // Dışa tıklama kontrolü için
   useEffect(() => {
@@ -23,6 +24,9 @@ const Navbar = () => {
           document.removeEventListener("mousedown", checkIfClickedOutside);
       }
   }, [isOpen]);
+  const handleClick = () =>{
+    navigate(`/profile/${"Alperen Akal"}`)
+  }
   return (
     <Flex display={"flex"} justifyContent={"flex-end"} padding={"10px"}  position={"relative"}>
     <img
@@ -35,7 +39,7 @@ const Navbar = () => {
     {isOpen && (
         <div style={{ position: 'absolute', top: '55px', right: 0, background: 'white', boxShadow: '0 2px 5px rgba(0,0,0,0.2)', zIndex: 1000, display:"block" }}>
             {/* Menü içeriği burada olacak */}
-            <a href="/profile">Profile</a>
+            <Button onClick={handleClick}>Profil</Button>
             <a href="/settings">Settings</a>
             <a href="/logout">Logout</a>
         </div>

@@ -44,7 +44,7 @@ function App() {
       <Route path='/sorusorsayfasi' element={<SoruSorSayfasi/>}/>
 
 
-      <Route path='/profile'  element={<Profile/>}/>
+      <Route path='/profile/:name'  element={<Profile/>}/>
       <Route path='/profileedit' element={<ProfileEdit/>} />
 
 

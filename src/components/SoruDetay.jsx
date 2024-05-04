@@ -24,6 +24,9 @@ const SoruDetay = () => {
     const handleClick =(konu) =>{
         navigate(`/konu/${konu}`)
     } 
+    const handleClick2 = (name) =>{
+        navigate(`/profile/${name}`)
+    }
 
     
     if(!soru)return <div>Yüklüyor...</div>
@@ -49,6 +52,7 @@ const SoruDetay = () => {
                                         _hover={{ bg: "transparent", textDecoration: "underline" }}
                                         alignItems="center"
                                         fontWeight="bold" fontFamily="heading"
+                                        onClick={()=>{handleClick2(`${soru.isim} ${soru.soyisim}`)}}
                                        
                                     >
                                         {soru.isim} {soru.soyisim}
