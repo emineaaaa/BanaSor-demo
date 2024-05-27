@@ -1,34 +1,38 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react'
+import { BsStar ,BsStarFill, BsStarHalf } from "react-icons/bs";
 
-import { BsStarFill , BsStar ,BsStarHalf   } from "react-icons/bs";
 
+const Rating = ({count}) => {
 
-const Rating = ({ count }) => {
-    const totalStars = 5;
+  const RanderStars=()=>{
+    let stars=[]
+    for(let i=1;i<=5;i++){
+      if(i<= Math.floor(count)){
+        stars.push(<BsStarFill key={i} color="#58A399"   size={"30px"} />)
+      }
+      else if(i=== Math.floor(count)+1 && count%1>=0.5){
+        stars.push(<BsStarHalf key={i} color="#58A399"   size={"30px"} />)
+      }
+      else{
+        stars.push(<BsStar key={i} color="#58A399"   size={"30px"} />)
+      }
+    }
+    return stars
+  }
 
-    const renderStars = () => {
-        let stars = [];
-        for (let i = 1; i <= totalStars; i++) {
-            if (i <= Math.floor(count)) {
-                // Tam sayı kadar tam yıldız ekleyin
-                stars.push(<BsStarFill key={i} color="#FFD700" size="24px" />);
-            } else if (i === Math.floor(count) + 1 && count % 1 >= 0.5) {
-                // Eğer count'ta ondalıklı bir kısım varsa ve bu kısım 0.5 veya daha büyükse,
-                // bu durumda tam yıldızın yerine bir yarım yıldız ekleyin
-                stars.push(<BsStarHalf key={i} color="#FFD700" size="24px" />);
-            } else {
-                // Geri kalan kısım için boş yıldızlar ekleyin
-                stars.push(<BsStar key={i} color="#FFD700" size="28px" />);
-            }
-        }
-        return stars;
-    };
-    return (
-        <Flex flexDirection={"row"} alignItems={"center"}  justifyContent="center" gap={1}  p={"20px"} >
-          {renderStars()}
-        </Flex>
-      );
+  return (
+    <Flex gap={2} flexDirection={"column"} alignItems="center"  justifyContent={"center"} padding="20px" >
+      <Flex fontSize={"20px"} fontWeight="bold"  >
+        {count}
+      </Flex>
+      <Flex flexDirection={"row"}>
+      {RanderStars()}
+      </Flex>
+      
+
+    </Flex>
+  )
 }
 
 export default Rating
