@@ -8,12 +8,5 @@
 from{border-right-color: #fff;}
 to{border-right-color: #000;}
 }
-.cardFront {
-  /* Kartın ön yüzü için CSS */
-  z-index: 1; /* Kart arkadayken ön yüzdeki etkileşimi devre dışı bırak */
-}
 
-.cardBack {
-  /* Kartın arka yüzü için CSS */
-  z-index: 0;/* Kart ön yüzdeyken arka yüzdeki etkileşimi aktif et */
-}
+
