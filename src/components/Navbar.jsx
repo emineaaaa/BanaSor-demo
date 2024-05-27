@@ -10,23 +10,37 @@ import {
   useDisclosure,
   Input,
   Image,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, SettingsIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { FaUser } from "react-icons/fa"; // Burada kafa simgesini ekledik
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
-  const [searchText, setSearchText] = useState(""); // Kullanıcının girdiği arama metnini tutmak için state
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
+
+  const handleClick1 = () => {
+    navigate("/");
+  };
+
   const handleSearch = () => {
-    // Burada arama işlemini gerçekleştirebilirsiniz, örneğin:
     console.log("Aranan metin:", searchText);
-    // Arama işlemini gerçekleştirdikten sonra arama kutusunu temizleyebilirsiniz
     setSearchText("");
   };
+
   const handleClick = () => {
-    navigate(`/singup`);
+    navigate("/singup");
   };
+
+  const handleLogout = () => {
+    navigate("/");
+  };
+
   return (
     <Box>
       <Flex
@@ -46,20 +60,27 @@ const Navbar = () => {
           display={{ base: "flex", md: "none" }}
         >
           <IconButton
-            onClick={onToggle}
+            onClick={handleClick1}
             icon={
               isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
             }
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
-        </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Image src="/banasorlogo.png" alt="Logo" w={20} h={20} />
+        </Flex>
+        <Button
+          onClick={handleClick1}
+          variant="ghost"
+          aria-label="Toggle Navigation"
+          _hover={{ bg: "transparent" }}
+          _active={{ bg: "transparent" }}
+          _focus={{ boxShadow: "none" }}
+        >
+          <Image src="/banasorlogo.png" alt="Logo" w={20} h={20} />
+        </Button>
 
-          <Flex></Flex>
-
-          {/* Arama kutusu */}
+        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Input
             type="text"
             placeholder="Ara..."
@@ -74,7 +95,6 @@ const Navbar = () => {
             width="auto"
             ml={20}
           />
-          {/* Arama düğmesi */}
           <Button
             fontSize={"sm"}
             fontWeight={400}
@@ -117,11 +137,29 @@ const Navbar = () => {
           >
             KAYIT OL
           </Button>
+
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Settings"
+              icon={<FaUser />} // Kafa simgesini burada değiştirdik
+              variant="ghost"
+              _hover={{ bg: "transparent" }}
+              _active={{ bg: "transparent" }}
+              _focus={{ boxShadow: "none" }}
+            />
+            <MenuList>
+              <MenuItem as={"a"} href={"#"}>
+                PROFİL
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>ÇIKIŞ YAP</MenuItem>
+            </MenuList>
+          </Menu>
         </Stack>
       </Flex>
-
       <Collapse in={isOpen} animateOpacity></Collapse>
     </Box>
   );
 };
+
 export default Navbar;

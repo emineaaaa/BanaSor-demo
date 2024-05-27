@@ -1,6 +1,20 @@
 import { Avatar, Box, Button, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
+  ChakraProvider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Checkbox,
+  Stack,
+} from "@chakra-ui/react";
+import {
   FaPencilAlt,
   FaGraduationCap,
   FaCalendarAlt,
@@ -11,10 +25,14 @@ import { useNavigate } from "react-router-dom";
 const ProfileName = ({ name }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate("/profileedit");
   };
+
   const handleFollowClick = () => {
     if (isFollowing) {
       setFollowerCount(followerCount - 1);
@@ -23,6 +41,29 @@ const ProfileName = ({ name }) => {
     }
     setIsFollowing(!isFollowing);
   };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOptionChange = (value) => {
+    if (selectedOptions.includes(value)) {
+      setSelectedOptions(selectedOptions.filter((option) => option !== value));
+    } else {
+      setSelectedOptions([...selectedOptions, value]);
+    }
+  };
+
+  const handleSubmit = () => {
+    // Şikayet gönderme işlemi burada yapılabilir
+    console.log("Şikayet Nedenleri:", selectedOptions);
+    closeModal();
+  };
+
   return (
     <Flex
       direction="column"
@@ -115,12 +156,76 @@ const ProfileName = ({ name }) => {
             </Button>
           </Flex>
         ) : (
-          <Button width={"300px"} borderRadius={"30px"} fontWeight={"bold"}>
-            Diğer Buton
+          <Button
+            width="300px"
+            borderRadius="30px"
+            fontWeight="bold"
+            bg="red.500"
+            color="white"
+            _hover={{ bg: "red.600" }}
+            _active={{ bg: "red.700" }}
+            onClick={openModal}
+          >
+            Şikayet Et
           </Button>
         )}
       </Flex>
-
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Şikayet Et</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl as="fieldset">
+              <FormLabel as="legend">Şikayet Nedeni</FormLabel>
+              <Stack direction="column">
+                <Button
+                  onClick={() => handleOptionChange("Müstehcen")}
+                  bg={selectedOptions.includes("Müstehcen") ? "gray.300" : ""}
+                  _hover={{ bg: "gray.200" }}
+                  _active={{ bg: "gray.400" }}
+                >
+                  Müstehcen İçerik
+                </Button>
+                <Button
+                  onClick={() => handleOptionChange("Küfür")}
+                  bg={selectedOptions.includes("Küfür") ? "gray.300" : ""}
+                  _hover={{ bg: "gray.200" }}
+                  _active={{ bg: "gray.400" }}
+                >
+                  Küfür ve Hakaret
+                </Button>
+                <Button
+                  onClick={() => handleOptionChange("YanilticiBilgi")}
+                  bg={
+                    selectedOptions.includes("YanilticiBilgi") ? "gray.300" : ""
+                  }
+                  _hover={{ bg: "gray.200" }}
+                  _active={{ bg: "gray.400" }}
+                >
+                  Yanıltıcı Bilgi
+                </Button>
+                <Button
+                  onClick={() => handleOptionChange("Tehdit")}
+                  bg={selectedOptions.includes("Tehdit") ? "gray.300" : ""}
+                  _hover={{ bg: "gray.200" }}
+                  _active={{ bg: "gray.400" }}
+                >
+                  Şiddet ve Tehditler
+                </Button>
+              </Stack>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
+              Gönder
+            </Button>
+            <Button variant="ghost" onClick={closeModal}>
+              İptal
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Flex alignItems="flex-start" w="100%" mt="30px" direction={"column"}>
         <Flex>Hakkinda</Flex>
         <Box height="5px" width="100%" bg="gray.200" mt={"4px"} />

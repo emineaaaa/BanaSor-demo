@@ -106,6 +106,16 @@ const SingUp = () => {
             />
           </FormControl>
 
+          <FormControl id="password">
+            <FormLabel>Şifre</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              value={user.password}
+              onChange={handleChange}
+            />
+          </FormControl>
+
           <FormControl id="seviye">
             <FormLabel>Seviye</FormLabel>
             <Select
