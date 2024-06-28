@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Text, Flex, Avatar, Button, Box, Image, CardBody, CardFooter } from '@chakra-ui/react';
+import { Card, Text, Flex, Avatar, Button, Box, Image, CardBody, CardFooter, Menu, MenuList, MenuItem } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TimeCal } from './TimeCal';
 import { FaPencilAlt } from "react-icons/fa";
-
+import YorumYapma from "./YorumYapma";
+import { MenuButton } from '@mui/base';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 
 const SoruDetay = () => {
     const [soru, setSorular] = useState([]);
+    const [yorumlar, setYorumlar] = useState([]);
     const navigate = useNavigate();
     const { soruid }=useParams()
   
@@ -33,6 +36,14 @@ const SoruDetay = () => {
     const handleClick3=(soruid)=>{
         navigate(`/sorugüncelle/${soruid}`)
     }
+
+    const handleYorumSubmit = (yeniYorum) => {
+        setYorumlar([...yorumlar, yeniYorum]);
+    };
+
+    const handleYorumSil = (index) => {
+        setYorumlar(yorumlar.filter((_, i) => i !== index));
+    };
     
     if(!soru)return <div>Yüklüyor...</div>
    
@@ -112,11 +123,19 @@ const SoruDetay = () => {
             <Flex  mt={4}>
                 <Flex minWidth={"608px"} maxWidth="608px" height="auto" px={4}>
                     <Card overflow='hidden' variant='outline' sx={{ minWidth: '608px', maxWidth: '608px', minHeight: '200px' }}>
-                        <CardBody>
-                            <Text>View a summary of all your customers over the last month.</Text>
-                        </CardBody>
+                    <CardBody>
+                        <YorumYapma onYorumSubmit={handleYorumSubmit} />
+                        {yorumlar.map((yorum, index) => (
+                            <Card key={index} mt={2} p={4} width="100%" variant='outline'>
+                                
+                                    <Text>{yorum}</Text>
+                                    
+                            </Card>
+                        ))}
+                    </CardBody>
                     </Card>
                 </Flex>
+                
             </Flex>
             </Flex>
             <Flex pl={"100px"}>
